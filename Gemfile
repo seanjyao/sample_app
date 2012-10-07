@@ -14,6 +14,8 @@ group :development, :test do
   gem 'spork'
 end
 
+gem 'annotate', '2.5.0', group: :development
+
 group :assets do
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
