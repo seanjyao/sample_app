@@ -7,8 +7,8 @@ describe "User pages" do
 	describe "index" do
 		before do
 			sign_in FactoryGirl.create(:user)
-			FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
-			FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+			FactoryGirl.create(:user, first_name: "Bob", last_name: "Doe", email: "bob@example.com")
+			FactoryGirl.create(:user, first_name: "Ben", last_name: "Foe", email: "ben@example.com")
 			visit users_path
 		end
 
@@ -17,7 +17,7 @@ describe "User pages" do
 
 		it "should list each user" do
 			User.all.each do |user|
-				page.should have_selector('li', text: user.name)
+				page.should have_selector('li', text: user.full_name)
 			end
 		end
 	end
@@ -28,8 +28,8 @@ describe "User pages" do
 		
 		before { visit user_path(user) }
 
-		it { should have_selector('h1',		text: user.name) }
-		it { should have_selector('title', 	text: user.name) }
+		it { should have_selector('h1',		text: user.full_name) }
+		it { should have_selector('title', 	text: user.full_name) }
 	end
 
 	describe "signup page" do
@@ -56,7 +56,8 @@ describe "User pages" do
 
 		describe "with valid information" do
 			before do
-				fill_in "Name",			with: "Example User"
+				fill_in "First name",	with: "Example"
+				fill_in "Last name", 	with: "User"
 				fill_in "Email", 		with: "user@example.com"
 				fill_in "Password",		with: "foobar"
 				fill_in "Confirmation",	with: "foobar"
@@ -70,7 +71,7 @@ describe "User pages" do
 				before { click_button submit }
 				let(:user) { User.find_by_email('user@example.com') }
 
-				it { should have_selector('title', text: user.name) }
+				it { should have_selector('title', text: user.full_name) }
 				it { should have_selector('div.alert.alert-success', text: 'Welcome') }
 				it { should have_link('Sign Out') }
 			end
@@ -97,20 +98,23 @@ describe "User pages" do
 		end
 
 		describe "with valid information" do
-			let(:new_name) 	{ "New Name" }
-			let(:new_email) { "new@example.com" }
+			let(:new_first_name) 	{ "New" }
+			let(:new_last_name)		{ "Name" }
+			let(:new_full_name)		{ "New Name" }
+			let(:new_email)   		{ "new@example.com" }
 			before do
-				fill_in "Name",				with: new_name
+				fill_in "First name",		with: new_first_name
+				fill_in "Last name", 		with: new_last_name
 				fill_in "Email",			with: new_email
 				fill_in "Password",			with: user.password
 				fill_in "Confirm Password",	with: user.password
 				click_button "Save Changes"
 			end
 
-			it { should have_selector('title', text: new_name) }
+			it { should have_selector('title', text: new_full_name) }
 			it { should have_selector('div.alert.alert-success') }
 			it { should have_link('Sign Out', href: signout_path) }
-			specify { user.reload.name.should == new_name }
+			specify { user.reload.full_name.should == new_full_name }
 			specify { user.reload.email.should == new_email }
 		end
 	end
