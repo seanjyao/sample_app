@@ -187,6 +187,18 @@ input, textarea, select, .uneditable-input
   		@extend .control-group;
   		@extend .error;
  	}
+/* profile */
+
+.span4
+	{
+		width: 30%;
+	}
+
+.profile_name
+	{
+		text-align: left;
+		font-size: 2em;
+	}
 
 /* users index */
 
@@ -205,8 +217,13 @@ input, textarea, select, .uneditable-input
 					}
 			}
 	}
-	
+
 /* miscellaneous */
+
+.name_label
+	{
+		text-transform: capitalize;
+	}
 
 .debug_dump
 	{
