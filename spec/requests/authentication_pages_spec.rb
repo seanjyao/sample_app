@@ -8,6 +8,10 @@ describe "AuthenticationPages" do
 
 		it { should have_selector('h1',		text: "Sign In") }
 		it { should have_selector('title', 	text: "Sign In") }
+        it { should_not have_link('Users') }
+        it { should_not have_link('Profile') }
+        it { should_not have_link('Settings') }
+        it { should_not have_link('Sign Out') }
 
 		describe "with invalid information" do
 			before { click_button "Sign In" }
@@ -58,6 +62,20 @@ describe "AuthenticationPages" do
     				it "should render the desired protected page" do
     					page.should have_selector('title', text: 'Edit User')
     				end
+
+                    describe "when signing in again" do
+                        before do
+                            delete signout_path
+                            visit signin_path
+                            fill_in "Email",       with: user.email
+                            fill_in "Password",    with: user.password
+                            click_button "Sign In"
+                        end
+
+                        it "should render the default (profile) page" do
+                            page.should have_selector('title', text: user.full_name)
+                        end
+                    end
     			end
     		end
 
