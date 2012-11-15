@@ -203,7 +203,7 @@ DEPENDENCIES
   guard-spork
   jquery-rails (= 2.1)
   launchy
-  pg
+  pg (= 0.12.2)
   rails (= 3.2.8)
   rb-fsevent
   rspec-rails (= 2.11.0)
