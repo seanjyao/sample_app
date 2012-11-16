@@ -201,7 +201,7 @@ DEPENDENCIES
   growl_notify
   guard-rspec
   guard-spork
-  jquery-rails (= 2.1)
+  jquery-rails
   launchy
   pg
   rails (= 3.2.8)
