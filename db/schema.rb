@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108135046) do
+ActiveRecord::Schema.define(:version => 20121123171119) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(:version => 20121108135046) do
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
-    t.string   "followed_id"
-    t.string   "integer"
+    t.integer  "followed_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
